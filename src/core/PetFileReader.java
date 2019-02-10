@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class PetFileReader {
+    private static final String SPECIAL_CHARACTERS_PATTERN = "[^a-zA-Z0-9]";
     private static final int NUMBER_OF_COLUMNS = 4;
     private static final int PET_TYPE = 0;
     private static final int PET_NAME = 1;
@@ -40,9 +41,9 @@ public class PetFileReader {
                     String[] parts = record.split(",");
                     if(parts.length == NUMBER_OF_COLUMNS) {
                         try {
-                            String petType = parts[PET_TYPE].trim();
-                            String petName = parts[PET_NAME].trim();
-                            String petGender = parts[PET_GENDER].trim();
+                            String petType = parts[PET_TYPE].trim().replaceAll(SPECIAL_CHARACTERS_PATTERN,"");
+                            String petName = parts[PET_NAME].trim().replaceAll(SPECIAL_CHARACTERS_PATTERN,"");
+                            String petGender = parts[PET_GENDER].trim().replaceAll(SPECIAL_CHARACTERS_PATTERN,"");
                             LocalDateTime lastUpdateDate = LocalDateTime.parse(parts[LAST_UPDATE_DATE].trim(), formatter);
                             return new Pet(petType, petName, petGender, lastUpdateDate);
                         }

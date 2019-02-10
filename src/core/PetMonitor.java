@@ -18,13 +18,21 @@ public class PetMonitor {
     }
 
     /**
-     * Add the pets recorded in the given filename to the current list.
+     * Add pets recorded in the given filename to the current list.
      * @param filename A CSV file of Pet records.
      */
     public void addPets(String filename)
     {
         PetFileReader reader = new PetFileReader();
         pets.addAll(reader.getPets(filename));
+    }
+
+    /**
+     * Store pets recorded in the given filename to the current list.
+     */
+    private void storePets() {
+        PetFileWriter writer = new PetFileWriter(pets);
+        writer.savePets();
     }
 
     /**
@@ -47,20 +55,6 @@ public class PetMonitor {
     }
 
     /**
-     * Print all the pets by the given name.
-     * @param petName The ID of the name.
-     */
-    public void printPetsBy(String petName)
-    {
-        pets.stream()
-                .filter(pet -> pet.getName().equals(petName))
-                .map(pet -> {
-                    return pet.getDetails();
-                })
-                .forEach(details -> System.out.println(details));
-    }
-
-    /**
      * TODO: Add custom exception handler and add a logger
      *
      * @param args input file which contains pets information
@@ -70,6 +64,7 @@ public class PetMonitor {
             if(args.length > 0) {
                 PetMonitor monitor = new PetMonitor();
                 monitor.addPets(args[0]);
+                monitor.storePets();
                 monitor.printList();
             }else{
                 throw new Exception();

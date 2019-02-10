@@ -3,7 +3,7 @@ Pet Management App
 
 About
 -----
-This App will allows you to create, search, delete and search information about pets that you want to store
+This App allows you to create, search, delete and search information about pets that you want to store
 
 This version allows you to interact through command line app only.
 

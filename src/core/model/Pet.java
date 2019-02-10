@@ -15,6 +15,13 @@ public class Pet {
         lastUpdateDate = petLastUpdateDate;
     }
 
+    public String getStoringDetails() {
+        return type +
+                ", " + name +
+                ", " + gender +
+                ", " + lastUpdateDate;
+    }
+
     public String getDetails() {
         return type +
                 ", name = " + name +
