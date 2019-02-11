@@ -1,12 +1,12 @@
-package core;
+package app.core;
 
-import core.fileio.PetFileReader;
-import core.fileio.PetFileWriter;
-import core.comparators.PetLastUpdateDateComparator;
-import core.comparators.PetNameComparator;
-import core.fileio.PetReadType;
-import core.model.Pet;
-import core.utils.PetUtils;
+import app.core.comparators.PetNameComparator;
+import app.core.fileio.PetFileReader;
+import app.core.fileio.PetFileWriter;
+import app.core.fileio.PetReadType;
+import app.core.model.Pet;
+import app.core.utils.PetUtils;
+import app.core.comparators.PetLastUpdateDateComparator;
 
 import java.util.*;
 
@@ -25,7 +25,7 @@ public class PetManager {
     /**
      * Initialize Pet information counter with pets size in file DB
      */
-    private void initialize() {
+    public void initialize() {
         if(this.pets != null && this.pets.size()==0) {
             this.currentSize = Long.valueOf(this.pets.size());
         }else{
@@ -49,12 +49,12 @@ public class PetManager {
     /**
      * Store pets recorded in the given filename to the current list.
      */
-    private void storePetsFromCache() {
+    public void storePetsFromCache() {
         PetFileWriter writer = new PetFileWriter(pets.values());
         writer.savePets();
     }
 
-    private void loadStoredPets() {
+    public void loadStoredPets() {
         PetFileReader reader = new PetFileReader(PetFileWriter.DB_FILE, PetReadType.FROM_DB);
         List<Pet> readPets = reader.getPets();
         if(readPets != null) {
@@ -65,7 +65,7 @@ public class PetManager {
     }
 
 
-    private void deletePet(String code) {
+    public void deletePet(String code) {
         if(pets!=null && pets.containsKey(code)) {
             System.out.println("deleting code "+code);
             Pet pet = pets.get(code);
@@ -73,7 +73,7 @@ public class PetManager {
         }
     }
 
-    private void updateStoredPets() {
+    public void updateStoredPets() {
         if(pets!=null) {
             PetFileWriter writer = new PetFileWriter(pets.values());
             writer.savePets();
@@ -146,43 +146,4 @@ public class PetManager {
         return result;
     }
 
-    /**
-     * TODO: Add custom exception handler and add a logger
-     *
-     * @param args input file which contains pets information
-     */
-    public static void main(String[] args){
-        if(args.length > 0) {
-            PetManager monitor = new PetManager();
-            monitor.loadStoredPets();
-            monitor.initialize();
-//            monitor.readPetsFromFile(args[0]);
-//            monitor.storePetsFromCache();
-            monitor.printPets();
-
-            System.out.println("Search by name");
-            String name = "Pirata";
-            List<Pet> resultsByName = monitor.searchPetByName(name);
-            PetManager.sortByName(resultsByName);
-            monitor.printPets(resultsByName);
-
-            System.out.println("Search by type");
-            String type = "CAT";
-            List<Pet> resultsByType = monitor.searchPetByType(type);
-            PetManager.sortByLastUpdateDate(resultsByType);
-            monitor.printPets(resultsByType);
-
-            System.out.println("Search by gender and type");
-            String gender = "F";
-            List<Pet> resultsByGenderAndType = monitor.searchPetByGenderAndType(gender, type);
-            PetManager.sortByLastUpdateDate(resultsByGenderAndType);
-            monitor.printPets(resultsByGenderAndType);
-//            monitor.deletePet("CATM0");
-//            monitor.updateStoredPets();
-
-        }else{
-            System.out.println("Please add input file to command line:");
-            System.out.println("e.g. java -jar petManager.jar PetsInformation.csv");
-        }
-    }
 }

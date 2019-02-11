@@ -1,6 +1,6 @@
-package core.comparators;
+package app.core.comparators;
 
-import core.model.Pet;
+import app.core.model.Pet;
 
 import java.util.Comparator;
 

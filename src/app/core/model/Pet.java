@@ -1,7 +1,7 @@
-package core.model;
+package app.core.model;
 
-import core.fileio.PetFileReader;
-import core.utils.PetUtils;
+import app.core.fileio.PetFileReader;
+import app.core.utils.PetUtils;
 
 import java.time.LocalDateTime;
 

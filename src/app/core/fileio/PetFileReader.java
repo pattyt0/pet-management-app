@@ -1,7 +1,7 @@
-package core.fileio;
+package app.core.fileio;
 
-import core.model.Pet;
-import core.utils.PetUtils;
+import app.core.model.Pet;
+import app.core.utils.PetUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;

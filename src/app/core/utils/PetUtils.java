@@ -1,4 +1,4 @@
-package core.utils;
+package app.core.utils;
 
 public class PetUtils {
     private PetUtils(){}

@@ -1,4 +1,4 @@
-package core.fileio;
+package app.core.fileio;
 
 public enum PetReadType {
     FROM_DB,

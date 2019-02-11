@@ -1,6 +1,6 @@
-package core.fileio;
+package app.core.fileio;
 
-import core.model.Pet;
+import app.core.model.Pet;
 
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
