@@ -124,7 +124,7 @@ public class PetManager {
     public List<Pet> searchPetByName(String name) {
         List<Pet> result = new ArrayList<>();
         for(Pet petDetails:pets.values()) {
-            if(petDetails.getName().equals(name))
+            if(petDetails.getName().equalsIgnoreCase(name))
                 result.add(petDetails);
         }
         return result;
@@ -133,7 +133,7 @@ public class PetManager {
     public List<Pet> searchPetByType(String type) {
         List<Pet> result = new ArrayList<>();
         for(Pet petDetails:pets.values()) {
-            if(petDetails.getType().equals(type))
+            if(petDetails.getType().equalsIgnoreCase(type))
                 result.add(petDetails);
         }
         return result;
@@ -142,7 +142,7 @@ public class PetManager {
     public List<Pet> searchPetByGenderAndType(String gender, String type) {
         List<Pet> result = new ArrayList<>();
         for(Pet petDetails:pets.values()) {
-            if(petDetails.getGender().equals(gender) && petDetails.getType().equals(type))
+            if(petDetails.getGender().equalsIgnoreCase(gender) && petDetails.getType().equalsIgnoreCase(type))
                 result.add(petDetails);
         }
         return result;
