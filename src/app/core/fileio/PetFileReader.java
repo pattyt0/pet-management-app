@@ -21,6 +21,9 @@ public class PetFileReader {
     private static final int PET_GENDER = 2;
     private static final int LAST_UPDATE_DATE = 3;
     private static final int PET_CODE = 4;
+    private static final int CSVCOLUMNS = 4;
+    private static final int DBCOLUMNS = 5;
+
     private static int numberOfColumns;
     public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
 
@@ -46,9 +49,9 @@ public class PetFileReader {
 
     private static void initializeColumnsNumber(PetReadType readType) {
         if (readType.equals(PetReadType.FROM_CSV)) {
-            numberOfColumns = 4;
+            numberOfColumns = CSVCOLUMNS;
         }else{
-            numberOfColumns = 5;
+            numberOfColumns = DBCOLUMNS;
         }
     }
 

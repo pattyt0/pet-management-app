@@ -2,7 +2,6 @@ package app.core.model;
 
 import app.core.fileio.PetFileReader;
 import app.core.utils.PetUtils;
-
 import java.time.LocalDateTime;
 
 public class Pet implements Comparable<Pet> {
@@ -71,4 +70,13 @@ public class Pet implements Comparable<Pet> {
         return type.compareTo(otherPet.getType());
     }
 
+    @Override
+    public boolean equals(Object otherPet) {
+        if (otherPet == null) return false;
+        if (this.getClass() != otherPet.getClass()) return false;
+
+        Long code1 = PetUtils.extractNumber(code);
+        Long code2 = PetUtils.extractNumber(((Pet)otherPet).getCode());
+        return code1.equals(code2);
+    }
 }

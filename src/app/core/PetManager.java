@@ -26,10 +26,11 @@ public class PetManager {
      * Initialize Pet information counter with pets size in file DB
      */
     public void initialize() {
-        if(this.pets != null && this.pets.size()==0) {
+        if(this.pets != null) {
+            this.currentSize = 0L;
+        }
+        if(this.pets != null && this.pets.size() >= 0){
             this.currentSize = Long.valueOf(this.pets.size());
-        }else{
-            this.currentSize = PetUtils.extractNumber(this.pets.lastKey()) + 1;
         }
     }
 
@@ -96,11 +97,6 @@ public class PetManager {
         for(Pet pet : pets) {
             System.out.println(pet.getDetails());
         }
-    }
-
-    public List<Pet> getPets(){
-        List<Pet> pets = new ArrayList<>(this.pets.values());
-        return pets;
     }
 
     /**

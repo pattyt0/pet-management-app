@@ -36,6 +36,7 @@ Example `inputFileName.csv`
     * Due to requirement of delete specific pet, it was implemented a unique id to locate specific pet.    
 * It was implemented Comparator interface taken into account that we could add more kinds of sorting for pets information and those are singleton because they will not change and could be used in other parts of the application.
 * It was implemented Command pattern due to the behavior of the app making it simple to execute a command from Client app.
-* Add case insensitive search   
+* Add case insensitive search
+*    
 
 
