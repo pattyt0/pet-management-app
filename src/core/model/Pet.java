@@ -44,8 +44,12 @@ public class Pet implements Comparable<Pet> {
         return code;
     }
 
-    private String getType() {
+    public String getType() {
         return type;
+    }
+
+    public String getGender() {
+        return gender;
     }
 
     public LocalDateTime getLastUpdateDate() {
@@ -66,4 +70,5 @@ public class Pet implements Comparable<Pet> {
         }
         return type.compareTo(otherPet.getType());
     }
+
 }

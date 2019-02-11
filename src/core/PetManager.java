@@ -90,6 +90,12 @@ public class PetManager {
         }
     }
 
+    public void printPets(List<Pet> pets){
+        for(Pet pet : pets) {
+            System.out.println(pet.getDetails());
+        }
+    }
+
     public List<Pet> getPets(){
         List<Pet> pets = new ArrayList<>(this.pets.values());
         return pets;
@@ -113,6 +119,33 @@ public class PetManager {
         Collections.sort(pets, PetLastUpdateDateComparator.getInstance());
     }
 
+    private List<Pet> searchPetByName(String name) {
+        List<Pet> result = new ArrayList<>();
+        for(Pet petDetails:pets.values()) {
+            if(petDetails.getName().equals(name))
+                result.add(petDetails);
+        }
+        return result;
+    }
+
+    private List<Pet> searchPetByType(String type) {
+        List<Pet> result = new ArrayList<>();
+        for(Pet petDetails:pets.values()) {
+            if(petDetails.getType().equals(type))
+                result.add(petDetails);
+        }
+        return result;
+    }
+
+    private List<Pet> searchPetByGenderAndType(String gender, String type) {
+        List<Pet> result = new ArrayList<>();
+        for(Pet petDetails:pets.values()) {
+            if(petDetails.getGender().equals(gender) && petDetails.getType().equals(type))
+                result.add(petDetails);
+        }
+        return result;
+    }
+
     /**
      * TODO: Add custom exception handler and add a logger
      *
@@ -123,21 +156,30 @@ public class PetManager {
             PetManager monitor = new PetManager();
             monitor.loadStoredPets();
             monitor.initialize();
-//            monitor.printPets();
-            monitor.readPetsFromFile(args[0]);
-            monitor.storePetsFromCache();
-//                monitor.printPets();
-//                System.out.println("Sort by last update date");
-//                PetManager.sortByLastUpdateDate(monitor.getPets());
-//                monitor.printPets();
-//            System.out.println("Delete Pet0");
-            monitor.deletePet("CATM0");
-            monitor.updateStoredPets();
-
-            System.out.println("Sort by name");
-            PetManager.sortByName(monitor.getPets());
-
+//            monitor.readPetsFromFile(args[0]);
+//            monitor.storePetsFromCache();
             monitor.printPets();
+
+            System.out.println("Search by name");
+            String name = "Pirata";
+            List<Pet> resultsByName = monitor.searchPetByName(name);
+            PetManager.sortByName(resultsByName);
+            monitor.printPets(resultsByName);
+
+            System.out.println("Search by type");
+            String type = "CAT";
+            List<Pet> resultsByType = monitor.searchPetByType(type);
+            PetManager.sortByLastUpdateDate(resultsByType);
+            monitor.printPets(resultsByType);
+
+            System.out.println("Search by gender and type");
+            String gender = "F";
+            List<Pet> resultsByGenderAndType = monitor.searchPetByGenderAndType(gender, type);
+            PetManager.sortByLastUpdateDate(resultsByGenderAndType);
+            monitor.printPets(resultsByGenderAndType);
+//            monitor.deletePet("CATM0");
+//            monitor.updateStoredPets();
+
         }else{
             System.out.println("Please add input file to command line:");
             System.out.println("e.g. java -jar petManager.jar PetsInformation.csv");
