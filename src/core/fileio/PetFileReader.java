@@ -1,6 +1,7 @@
-package core;
+package core.fileio;
 
 import core.model.Pet;
+import core.utils.PetUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,17 +16,40 @@ import java.util.stream.Stream;
 
 public class PetFileReader {
     private static final String SPECIAL_CHARACTERS_PATTERN = "[^a-zA-Z0-9]";
-    private static final int NUMBER_OF_COLUMNS = 4;
     private static final int PET_TYPE = 0;
     private static final int PET_NAME = 1;
     private static final int PET_GENDER = 2;
     private static final int LAST_UPDATE_DATE = 3;
+    private static final int PET_CODE = 4;
+    private static int numberOfColumns;
+    public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
 
+    private PetReadType petReadType;
     private String inputFile;
+    private Long internalCounter;
 
-    public PetFileReader(String filename)
+
+    public PetFileReader(String filename, PetReadType readType)
     {
         inputFile = filename;
+        internalCounter = 0L;
+        petReadType = readType;
+        initializeColumnsNumber(readType);
+    }
+
+    public PetFileReader(String filename, Long currentSize, PetReadType readType) {
+        inputFile = filename;
+        internalCounter = currentSize;
+        petReadType = readType;
+        initializeColumnsNumber(readType);
+    }
+
+    private static void initializeColumnsNumber(PetReadType readType) {
+        if (readType.equals(PetReadType.FROM_CSV)) {
+            numberOfColumns = 4;
+        }else{
+            numberOfColumns = 5;
+        }
     }
 
     /**
@@ -35,24 +59,32 @@ public class PetFileReader {
      */
     public List<Pet> getPets()
     {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
         List<Pet> pets;
 
         Function<String, Pet> createPet =
                 record -> {
+                    String petCode;
                     String petType;
                     String petName;
                     String petGender;
                     LocalDateTime lastUpdateDate;
 
                     String[] parts = record.split(",");
-                    if(parts.length == NUMBER_OF_COLUMNS) {
+                    if(parts.length == numberOfColumns) {
                         try {
                             petType = parts[PET_TYPE].trim().replaceAll(SPECIAL_CHARACTERS_PATTERN,"");
                             petName = parts[PET_NAME].trim().replaceAll(SPECIAL_CHARACTERS_PATTERN,"");
                             petGender = parts[PET_GENDER].trim().replaceAll(SPECIAL_CHARACTERS_PATTERN,"");
                             lastUpdateDate = LocalDateTime.parse(parts[LAST_UPDATE_DATE].trim(), formatter);
-                            return new Pet(petType, petName, petGender, lastUpdateDate);
+
+                            if(petReadType.equals(PetReadType.FROM_DB)) {
+                                petCode = parts[PET_CODE].trim().replaceAll(SPECIAL_CHARACTERS_PATTERN, "");
+
+                            }else{
+                                petCode = PetUtils.generateUniqueInternalCode(petType, petGender, internalCounter);
+                                incrementCounter();
+                            }
+                            return new Pet(petCode, petType, petName, petGender, lastUpdateDate);
                         }
                         catch(NumberFormatException e) {
                             System.out.println("Pet record has a malformed data: " + record);
@@ -74,5 +106,9 @@ public class PetFileReader {
             pets = null;
         }
         return pets;
+    }
+
+    private void incrementCounter() {
+        this.internalCounter++;
     }
 }

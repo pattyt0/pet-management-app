@@ -31,10 +31,10 @@ Example `inputFileName.csv`
 ### About this Version
 
 * Allows you to interact through command line app only. 
-* Thinking about the data structure to handle Pets information in memory it was selected Arraylist:
-    * There is a possibility to have duplicate data pets, so eventually we will need to add the information about the owner.
-    * Current Pet attributes don't guarantee to be unique and this limited the use of other Search/Sort data structure with better performance.
-* It was implemented Comparator interface taken into account that we could add more kinds of sorting our pets information and those are singleton because they will not change and could be used in other parts of the application.
+* Thinking about the data structure to handle Pets information in memory it was selected TreeMap:
+    * There is a possibility to have duplicate data pets and TreeMap allows store duplicated values, consider in a future add the information about the pet owner.
+    * Due to requirement of delete specific pet, it was implemented a unique id to locate specific pet.    
+* It was implemented Comparator interface taken into account that we could add more kinds of sorting for pets information and those are singleton because they will not change and could be used in other parts of the application.
         
 
 
