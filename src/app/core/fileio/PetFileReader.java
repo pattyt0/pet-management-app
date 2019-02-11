@@ -90,8 +90,7 @@ public class PetFileReader {
                             System.out.println("Pet record has a malformed data: " + record);
                             return null;
                         }
-                    }
-                    else {
+                    }else {
                         System.out.println("Pet record with wrong number of columns");
                         return null;
                     }
@@ -103,7 +102,7 @@ public class PetFileReader {
         }
         catch(IOException e) {
             System.out.println("Unable to open file " + inputFile);
-            pets = null;
+            pets = new ArrayList<>();
         }
         return pets;
     }

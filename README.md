@@ -12,11 +12,11 @@ To build sources locally follow these instructions and execute them from project
 ### Build 
 Compile the program using javac command:
  
-    javac -d build\ src\core\*.java src\core\model\*.java
+    javac -d build\ src\app\core\*.java src\app\core\model\*.java src\app\core\comparators\*.java src\app\core\fileIO\*.java src\app\core\utils\*.java src\app\client\*.java src\app\command\*.java src\app\invoker\*.java
 
 Create executable JAR file using jar command:
 
-    jar cfm petManager.jar manifest.txt -C build core
+    jar cfm petManager.jar manifest.txt -C build app
     
 Run the program using java command and sending the input file name as argument:
     

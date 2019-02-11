@@ -4,4 +4,4 @@
 /build/
 test/
 .idea/*
-src/resources/
+src/app/resources/

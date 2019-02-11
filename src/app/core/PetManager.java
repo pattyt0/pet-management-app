@@ -67,9 +67,11 @@ public class PetManager {
 
     public void deletePet(String code) {
         if(pets!=null && pets.containsKey(code)) {
-            System.out.println("deleting code "+code);
+            System.out.println("Deleting code "+code);
             Pet pet = pets.get(code);
             pets.remove(code, pet);
+        }else{
+            System.out.println("Code is not used "+code);
         }
     }
 
@@ -119,7 +121,7 @@ public class PetManager {
         Collections.sort(pets, PetLastUpdateDateComparator.getInstance());
     }
 
-    private List<Pet> searchPetByName(String name) {
+    public List<Pet> searchPetByName(String name) {
         List<Pet> result = new ArrayList<>();
         for(Pet petDetails:pets.values()) {
             if(petDetails.getName().equals(name))
@@ -128,7 +130,7 @@ public class PetManager {
         return result;
     }
 
-    private List<Pet> searchPetByType(String type) {
+    public List<Pet> searchPetByType(String type) {
         List<Pet> result = new ArrayList<>();
         for(Pet petDetails:pets.values()) {
             if(petDetails.getType().equals(type))
@@ -137,7 +139,7 @@ public class PetManager {
         return result;
     }
 
-    private List<Pet> searchPetByGenderAndType(String gender, String type) {
+    public List<Pet> searchPetByGenderAndType(String gender, String type) {
         List<Pet> result = new ArrayList<>();
         for(Pet petDetails:pets.values()) {
             if(petDetails.getGender().equals(gender) && petDetails.getType().equals(type))

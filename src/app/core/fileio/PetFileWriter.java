@@ -9,7 +9,7 @@ import java.util.Collection;
 
 public class PetFileWriter {
 
-    public static final String DB_FILE = "src/resources/db.txt";
+    public static final String DB_FILE = "src/app/resources/db.txt";
     private Collection<Pet> pets;
 
     public PetFileWriter(Collection<Pet> pets) {
