@@ -1,9 +1,7 @@
 # IntelliJ project files
-*.xml
-*.iml
-.idea/
-out/
-/.idea/sonarlint/
-/build/core/
 /*.jar
 /*.csv
+/build/
+test/
+.idea/*
+src/resources/

@@ -7,9 +7,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.util.*;
 
-import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -22,29 +21,37 @@ public class PetFileReader {
     private static final int PET_GENDER = 2;
     private static final int LAST_UPDATE_DATE = 3;
 
-    public PetFileReader()
+    private String inputFile;
+
+    public PetFileReader(String filename)
     {
-        //not implemented
+        inputFile = filename;
     }
 
     /**
      * Reads pets in CSV format from the given file.
      *
-     * @param filename The file to be read with CSV format.
      * @return A list of Pets.
      */
-    public List<Pet> getPets(String filename)
+    public List<Pet> getPets()
     {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
+        List<Pet> pets;
+
         Function<String, Pet> createPet =
                 record -> {
+                    String petType;
+                    String petName;
+                    String petGender;
+                    LocalDateTime lastUpdateDate;
+
                     String[] parts = record.split(",");
                     if(parts.length == NUMBER_OF_COLUMNS) {
                         try {
-                            String petType = parts[PET_TYPE].trim().replaceAll(SPECIAL_CHARACTERS_PATTERN,"");
-                            String petName = parts[PET_NAME].trim().replaceAll(SPECIAL_CHARACTERS_PATTERN,"");
-                            String petGender = parts[PET_GENDER].trim().replaceAll(SPECIAL_CHARACTERS_PATTERN,"");
-                            LocalDateTime lastUpdateDate = LocalDateTime.parse(parts[LAST_UPDATE_DATE].trim(), formatter);
+                            petType = parts[PET_TYPE].trim().replaceAll(SPECIAL_CHARACTERS_PATTERN,"");
+                            petName = parts[PET_NAME].trim().replaceAll(SPECIAL_CHARACTERS_PATTERN,"");
+                            petGender = parts[PET_GENDER].trim().replaceAll(SPECIAL_CHARACTERS_PATTERN,"");
+                            lastUpdateDate = LocalDateTime.parse(parts[LAST_UPDATE_DATE].trim(), formatter);
                             return new Pet(petType, petName, petGender, lastUpdateDate);
                         }
                         catch(NumberFormatException e) {
@@ -53,19 +60,18 @@ public class PetFileReader {
                         }
                     }
                     else {
-                        System.out.println("Pet record wrong number of columns: " + record);
+                        System.out.println("Pet record with wrong number of columns");
                         return null;
                     }
                 };
-        ArrayList<Pet> pets;
-        try ( Stream<String> lines = Files.lines(Paths.get(filename))){
+        try ( Stream<String> lines = Files.lines(Paths.get(inputFile))){
             pets = lines.map(createPet)
                     .filter(petLine -> { return petLine != null;})
                     .collect(Collectors.toCollection(ArrayList::new));
         }
         catch(IOException e) {
-            System.out.println("Unable to open file" + filename + " Why: "+ e);
-            pets = new ArrayList<>();
+            System.out.println("Unable to open file " + inputFile);
+            pets = null;
         }
         return pets;
     }

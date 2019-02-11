@@ -9,7 +9,7 @@ import java.util.List;
 
 public class PetFileWriter {
 
-    public static final String DB_FILE = "src/resources/db.txt";
+    private static final String DB_FILE = "src/resources/db.txt";
     private List<Pet> pets;
 
     public PetFileWriter(List<Pet> pets) {

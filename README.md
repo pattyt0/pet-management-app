@@ -5,9 +5,6 @@ About
 -----
 This App allows you to create, search, delete and search information about pets that you want to store
 
-This version allows you to interact through command line app only.
-
-
 Build and Deploy Instructions
 -----------------------------
 To build sources locally follow these instructions and execute them from project base directory.
@@ -29,6 +26,15 @@ Example `inputFileName.csv`
 
         CAT,Fluffy,M,20131231-145934       
         DOG,Sid,M,20121231-145934
-        CAT,Mishi,M,20181231-145934       
+        CAT,Mishi,M,20181231-145934
+        
+### About this Version
+
+* Allows you to interact through command line app only. 
+* Thinking about the data structure to handle Pets information in memory it was selected Arraylist:
+    * There is a possibility to have duplicate data pets, so eventually we will need to add the information about the owner.
+    * Current Pet attributes don't guarantee to be unique and this limited the use of other Search/Sort data structure with better performance.
+* It was implemented Comparator interface taken into account that we could add more kinds of sorting our pets information and those are singleton because they will not change and could be used in other parts of the application.
+        
 
 

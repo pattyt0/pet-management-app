@@ -2,7 +2,7 @@ package core.model;
 
 import java.time.LocalDateTime;
 
-public class Pet {
+public class Pet{
     private final String type;
     private final String name;
     private final String gender;
@@ -29,11 +29,11 @@ public class Pet {
                 ", lastUpdateDate = " + lastUpdateDate;
     }
 
-    public String getType() {
-        return type;
-    }
-
     public String getName() {
         return name;
+    }
+
+    public LocalDateTime getLastUpdateDate() {
+        return lastUpdateDate;
     }
 }
