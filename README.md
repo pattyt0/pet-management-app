@@ -27,8 +27,38 @@ Example `inputFileName.csv`
         CAT,Fluffy,M,20131231-145934       
         DOG,Sid,M,20121231-145934
         CAT,Mishi,M,20181231-145934
-        
-### About this Version
+Commands
+--------
+### Print pets
+Print pet information from file database sorted by code.
+
+    java -jar petManager.jar
+    
+### Read pets
+Read from a csv file type every time this is passed as an argument.
+
+    java -jar petManager.jar inputFileName.csv
+
+### Search a pet
+Search by name then prints result list alphabetically
+
+    java -jar petManager.jar inputFileName.csv name=princess
+
+Search by type then prints result list from most recent to least recent.
+
+    java -jar petManager.jar inputFileName.csv type=cat
+    
+Search by gender and type then prints result list from most recent to least recent.
+    
+    java -jar petManager.jar inputFileName.csv gender=f type=cat
+    
+### Delete a pet
+Delete specific pet sending its pet unique code. You can see list of pets and its codes executing print command.  
+    
+    java -jar petManager.jar inputFileName.csv code=CM0   
+
+About this Version
+------------------
 
 * Allows you to interact through command line app only. 
 * Thinking about the data structure to handle Pets information in memory it was selected TreeMap:
