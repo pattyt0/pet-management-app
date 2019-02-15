@@ -5,7 +5,6 @@ import app.core.fileio.PetFileReader;
 import app.core.fileio.PetFileWriter;
 import app.core.fileio.PetReadType;
 import app.core.model.Pet;
-import app.core.utils.PetUtils;
 import app.core.comparators.PetLastUpdateDateComparator;
 
 import java.util.*;
@@ -26,10 +25,7 @@ public class PetManager {
      * Initialize Pet information counter with pets size in file DB
      */
     public void initialize() {
-        if(this.pets != null) {
-            this.currentSize = 0L;
-        }
-        if(this.pets != null && this.pets.size() >= 0){
+        if(this.pets != null && this.pets.size() > 0){
             this.currentSize = Long.valueOf(this.pets.size());
         }
     }
@@ -142,6 +138,10 @@ public class PetManager {
                 result.add(petDetails);
         }
         return result;
+    }
+
+    public int getTotalPets(){
+        return this.pets.size();
     }
 
 }
